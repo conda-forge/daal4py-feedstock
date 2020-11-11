@@ -7,13 +7,21 @@ Package license: Apache-2.0
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/daal4py-feedstock/blob/master/LICENSE.txt)
 
-Summary: A convenient Python API to Intel(R) oneAPI Data Analytics Library
+Summary: A convenient Python API to Intel (R) oneAPI Data Analytics Library
 
 Development: https://github.com/IntelPython/daal4py
 
-Documentation: https://intelpython.github.io/daal4py/
+Documentation: https://intelpython.github.io/daal4py
 
- <strong>LEGAL NOTICE: Use of this software package is subject to the software license agreement (as set forth above, in the license section of the installed Conda package and/or the README file) and all notices, disclaimers or license terms for third party or open source software included in or with the software.</strong> <br/><br/> EULA: <a href="https://opensource.org/licenses/Apache-2.0" target="_blank">Apache-2.0 License</a><br/><br/>
+<strong>LEGAL NOTICE: Use of this software package is subject to the
+software license agreement (as set forth above, in the license section of
+the installed Conda package and/or the README file) and all notices,
+disclaimers or license terms for third party or open source software
+included in or with the software.</strong>
+<br/><br/>
+EULA: <a href="https://opensource.org/licenses/Apache-2.0" target="_blank">Apache-2.0</a>
+<br/><br/>
+
 
 Current build status
 ====================
