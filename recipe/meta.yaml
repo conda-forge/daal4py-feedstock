@@ -1,5 +1,5 @@
-{% set version = '2020.2' %}
-{% set buildnumber = 1 %}
+{% set version = '2020.3' %}
+{% set buildnumber = 0 %}
 
 package:
     name: daal4py
@@ -7,7 +7,7 @@ package:
 
 source:
     url:    https://github.com/IntelPython/daal4py/archive/{{ version }}.tar.gz
-    sha256: d71028538d028f1cc03706d9b1984ac932da45592696edd678518954ac485c4f
+    sha256: 5926d4e187ae1cc8fbd20b2d6026be8744fb8ea0603cee857e78295c206b46b6
 build:
     skip: True  # [osx]
     number: {{ buildnumber }}
@@ -21,14 +21,14 @@ requirements:
         - python
         - setuptools
         - numpy
-        - daal-devel >=2020.2
+        - daal-devel >=2020.3
         - cython
         - jinja2
         - mpich  # [not win]
         - clang-tools
     run:
         - python
-        - daal >=2020.2
+        - daal >=2020.3
         - {{ pin_compatible('numpy') }}
 
 test:
@@ -36,30 +36,40 @@ test:
         - pandas
         - scipy
         - scikit-learn
+        - xgboost  # [not win]
+        - lightgbm  # [not win]
+        - pytest
         - mpich  # [not win]
     source_files:
         - examples
         - tests
+        - daal4py
     commands:
         - python -c "import daal4py"
         - mpirun -n 4 python -m unittest discover -v -s tests -p spmd*.py  # [not win]
         - python -m unittest discover -v -s tests -p test*.py
+        - pytest --pyargs daal4py/sklearn/
+        - python examples/run_examples.py
         - python -m daal4py examples/sycl/sklearn_sycl.py
-        - cd examples && python run_examples.py
 
 about:
     home: https://intelpython.github.io/daal4py/
     license: Apache-2.0
-    license_file: LICENSE
-    summary: A convenient Python API to Intel(R) oneAPI Data Analytics Library
-    description: ' <strong>LEGAL NOTICE: Use of this software package is subject to the software
-    license agreement (as set forth above, in the license section of the installed Conda package
-    and/or the README file) and all notices, disclaimers or license terms for third party or open
-    source software included in or with the software.</strong> <br/><br/>
-    EULA: <a href="https://opensource.org/licenses/Apache-2.0"
-    target="_blank">Apache-2.0 License</a><br/><br/>'
+    license_file: 
+          - LICENSE
+          - doc/third-party-programs.txt
+    summary: A convenient Python API to Intel (R) oneAPI Data Analytics Library
+    description: |
+      <strong>LEGAL NOTICE: Use of this software package is subject to the
+      software license agreement (as set forth above, in the license section of
+      the installed Conda package and/or the README file) and all notices,
+      disclaimers or license terms for third party or open source software
+      included in or with the software.</strong>
+      <br/><br/>
+      EULA: <a href="https://opensource.org/licenses/Apache-2.0" target="_blank">Apache-2.0</a>
+      <br/><br/>
     dev_url: https://github.com/IntelPython/daal4py
-    doc_url: https://intelpython.github.io/daal4py/
+    doc_url: https://intelpython.github.io/daal4py
 
 extra:
     recipe-maintainers:
