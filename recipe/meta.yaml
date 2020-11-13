@@ -36,7 +36,7 @@ test:
     - pandas
     - scipy
     - scikit-learn
-    - xgboost      # [not win]
+    - xgboost      # [not win and py<=38]
     - lightgbm      # [not win]
     - pytest
     - mpich      # [not win]
