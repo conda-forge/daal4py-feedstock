@@ -1,4 +1,4 @@
-{% set version = "2020.3" %}
+{% set version = "2021.1" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/IntelPython/daal4py/archive/{{ version }}.tar.gz
-  sha256: 5926d4e187ae1cc8fbd20b2d6026be8744fb8ea0603cee857e78295c206b46b6
+  sha256: f0c9e82490cc865e039137c27ed37bc46f17db64594ca80c694ab466e2470903
 build:
   skip: true  # [osx]
   number: {{ buildnumber }}
@@ -21,14 +21,14 @@ requirements:
     - python
     - setuptools
     - numpy
-    - daal-devel >=2020.3
+    - daal-devel >=2021.1
     - cython
     - jinja2
     - mpich      # [not win]
     - clang-tools
   run:
     - python
-    - daal >=2020.3
+    - daal >=2021.1
     - {{ pin_compatible('numpy') }}
 
 test:
