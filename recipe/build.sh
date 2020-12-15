@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$PY3K" == "1" ]; then
-    ARGS=""
+    ARGS="--single-version-externally-managed --record=record.txt"
 else
     ARGS="--old-and-unmanageable"
 fi
@@ -10,12 +10,17 @@ fi
 if [ ! -z "${DPCPPROOT}" ]; then
     source ${DPCPPROOT}/env/vars.sh
     export CC=dpcpp
+    export CXX=dpcpp
     dpcpp --version
 fi
 
 # if DAALROOT not exists then provide PREFIX
-if [ -z "${DAALROOT}" ]; then
-    export DAALROOT=${PREFIX}
+if [ "${DAALROOT}" != "" ] && [ "${DALROOT}" == "" ] ; then
+    export DALROOT="${DAALROOT}"
+fi
+
+if [ -z "${DALROOT}" ]; then
+    export DALROOT=${PREFIX}
 fi
 
 if [ "$(uname)" == "Darwin" ]; then
