@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/IntelPython/daal4py/archive/{{ version }}.tar.gz
-  sha256: 1c3ce423f0c7762acc0a7e73b30f20c1d2639ab3d424cb6982243b3db2c2f4c6
+  sha256: 5007a706b40242f6f31d5a3bea5a2f38553f1325416df80e38e9c61ac974acf4
 build:
   skip: true  # [osx]
   number: {{ buildnumber }}
