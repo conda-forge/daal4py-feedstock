@@ -1,4 +1,4 @@
-{% set version = "2020.3" %}
+{% set version = "2020.3.1" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/IntelPython/daal4py/archive/{{ version }}.tar.gz
-  sha256: 5926d4e187ae1cc8fbd20b2d6026be8744fb8ea0603cee857e78295c206b46b6
+  sha256: 5007a706b40242f6f31d5a3bea5a2f38553f1325416df80e38e9c61ac974acf4
 build:
   skip: true  # [osx]
   number: {{ buildnumber }}
