@@ -9,7 +9,6 @@ source:
   url: https://github.com/IntelPython/daal4py/archive/{{ version }}.tar.gz
   sha256: 5007a706b40242f6f31d5a3bea5a2f38553f1325416df80e38e9c61ac974acf4
 build:
-  skip: true  # [osx]
   number: {{ buildnumber }}
   include_recipe: false
 
@@ -24,7 +23,7 @@ requirements:
     - daal-devel >=2020.3
     - cython
     - jinja2
-    - mpich      # [not win]
+    - mpich      # [lnx]
     - clang-tools
   run:
     - python
@@ -37,16 +36,16 @@ test:
     - scipy
     - scikit-learn
     - xgboost      # [not win and py<=38]
-    - lightgbm      # [not win]
+    - lightgbm     # [not win]
     - pytest
-    - mpich      # [not win]
+    - mpich        # [lnx]
   source_files:
     - examples
     - tests
     - daal4py
   commands:
     - python -c "import daal4py"
-    - mpirun -n 4 python -m unittest discover -v -s tests -p spmd*.py      # [not win]
+    - mpirun -n 4 python -m unittest discover -v -s tests -p spmd*.py      # [lnx]
     - python -m unittest discover -v -s tests -p test*.py
     - pytest --pyargs daal4py/sklearn/
     - python examples/run_examples.py
