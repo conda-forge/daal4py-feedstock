@@ -23,7 +23,7 @@ requirements:
     - daal-devel >=2020.3
     - cython
     - jinja2
-    - mpich      # [lnx]
+    - mpich      # [not win and not osx]
     - clang-tools
   run:
     - python
@@ -36,16 +36,16 @@ test:
     - scipy
     - scikit-learn
     - xgboost      # [not win and py<=38]
-    - lightgbm     # [not win]
+    - lightgbm     # [not win and not osx]
     - pytest
-    - mpich        # [lnx]
+    - mpich        # [not win and not osx]
   source_files:
     - examples
     - tests
     - daal4py
   commands:
     - python -c "import daal4py"
-    - mpirun -n 4 python -m unittest discover -v -s tests -p spmd*.py      # [lnx]
+    - mpirun -n 4 python -m unittest discover -v -s tests -p spmd*.py # [not win and not osx]
     - python -m unittest discover -v -s tests -p test*.py
     - pytest --pyargs daal4py/sklearn/
     - python examples/run_examples.py
