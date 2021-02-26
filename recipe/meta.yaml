@@ -21,14 +21,14 @@ requirements:
     - python
     - setuptools
     - numpy
-    - daal-devel >=2020.3
+    - daal-devel ==2020.3
     - cython
     - jinja2
     - mpich      # [not win]
     - clang-tools
   run:
     - python
-    - daal >=2020.3
+    - daal ==2020.3
     - {{ pin_compatible('numpy') }}
 
 test:
