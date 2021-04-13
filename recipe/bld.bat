@@ -10,4 +10,10 @@ echo "clang-format --version"
 clang-format --version
 %PYTHON% -c "import shutil ; print(shutil.which('clang-format'))"
 
+set PATH=%PREFIX%\Library\bin;%PATH%
+
+echo "clang-format --version"
+clang-format --version
+%PYTHON% -c "import shutil ; print(shutil.which('clang-format'))"
+
 %PYTHON% setup.py install --single-version-externally-managed --record record.txt
