@@ -6,4 +6,8 @@ IF DEFINED DAALROOT (set DALROOT=%DAALROOT%)
 IF NOT DEFINED DALROOT (set DALROOT=%PREFIX%)
 set PATH=%PATH%;%PREFIX%\Library\bin\libfabric
 
+echo "clang-format --version"
+clang-format --version
+%PYTHON% -c "import shutil ; print(shutil.which('clang-format'))"
+
 %PYTHON% setup.py install --single-version-externally-managed --record record.txt
