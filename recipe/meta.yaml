@@ -25,7 +25,7 @@ requirements:
     - cython
     - jinja2
     - mpich      # [not win]
-    - clang-tools
+    - clang-tools ==9.0.1
   run:
     - python
     - dal ==2021.2.2
