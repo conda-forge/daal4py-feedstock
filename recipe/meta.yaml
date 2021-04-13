@@ -1,13 +1,13 @@
-{% set version = "2020.3.1" %}
-{% set buildnumber = 1 %}
+{% set version = "2021.1" %}
+{% set buildnumber = 0 %}
 
 package:
   name: daal4py
   version: {{ version }}
 
 source:
-  url: https://github.com/IntelPython/daal4py/archive/{{ version }}.tar.gz
-  sha256: 5007a706b40242f6f31d5a3bea5a2f38553f1325416df80e38e9c61ac974acf4
+  url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
+  sha256: 50f5d274c953b67d419b15c65cb30d9774eea51fb3019fc07321f7e08e3f9274
 build:
   skip: true  # [osx]
   number: {{ buildnumber }}
@@ -21,14 +21,14 @@ requirements:
     - python
     - setuptools
     - numpy
-    - daal-devel ==2020.3
+    - dal-devel ==2021.1.1
     - cython
     - jinja2
     - mpich      # [not win]
     - clang-tools
   run:
     - python
-    - daal ==2020.3
+    - dal ==2021.1.1
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -57,7 +57,7 @@ about:
   license: Apache-2.0
   license_file:
     - LICENSE
-    - doc/third-party-programs.txt
+    - doc/daal4py/third-party-programs.txt
   summary: A convenient Python API to Intel (R) oneAPI Data Analytics Library
   description: |
     <strong>LEGAL NOTICE: Use of this software package is subject to the
@@ -68,7 +68,7 @@ about:
     <br/><br/>
     EULA: <a href="https://opensource.org/licenses/Apache-2.0" target="_blank">Apache-2.0</a>
     <br/><br/>
-  dev_url: https://github.com/IntelPython/daal4py
+  dev_url: https://github.com/intel/scikit-learn-intelex
   doc_url: https://intelpython.github.io/daal4py
 
 extra:
