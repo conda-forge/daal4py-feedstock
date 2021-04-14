@@ -36,7 +36,7 @@ test:
     - scipy
     - scikit-learn
     - xgboost      # [not win and py<=38]
-    - lightgbm      # [not win and not osx]
+    - lightgbm      # [lnx]
     - pytest
     - mpich      # [not win]
   source_files:
