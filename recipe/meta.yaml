@@ -1,4 +1,4 @@
-{% set version = "2021.1" %}
+{% set version = "2021.2.1" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 50f5d274c953b67d419b15c65cb30d9774eea51fb3019fc07321f7e08e3f9274
+  sha256: 5cfd513245e686d5503ae6ef2d5a17dbf5d0ca41d14b2322a492e1f816ece251
 build:
   skip: true  # [osx]
   number: {{ buildnumber }}
@@ -21,14 +21,14 @@ requirements:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2021.1.1
+    - dal-devel ==2021.2.2
     - cython
     - jinja2
     - mpich      # [not win]
     - clang-tools
   run:
     - python
-    - dal ==2021.1.1
+    - dal ==2021.2.2
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -47,11 +47,7 @@ test:
   commands:
     - python -c "import daal4py"
     - mpirun -n 4 python -m unittest discover -v -s tests -p spmd*.py      # [not win]
-    - python -m unittest discover -v -s tests -p test_df_support.py
-    - python -m unittest discover -v -s tests -p test_examples.py
-    - python -m unittest discover -v -s tests -p test_logistic_regression_model_builder.py
-    - python -m unittest discover -v -s tests -p test_memory_usage.py
-    - python -m unittest discover -v -s tests -p test_npy.py
+    - python -m unittest discover -v -s tests -p test*.py
     - pytest --pyargs daal4py/sklearn/
     - python examples/run_examples.py
     - python -m daal4py examples/sycl/sklearn_sycl.py
@@ -61,7 +57,7 @@ about:
   license: Apache-2.0
   license_file:
     - LICENSE
-    - doc/third-party-programs.txt
+    - doc/daal4py/third-party-programs.txt
   summary: A convenient Python API to Intel (R) oneAPI Data Analytics Library
   description: |
     <strong>LEGAL NOTICE: Use of this software package is subject to the
