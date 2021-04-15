@@ -1,5 +1,5 @@
 {% set version = "2021.2.2" %}
-{% set buildnumber = 0 %}
+{% set buildnumber = 1 %}
 
 package:
   name: daal4py
@@ -9,14 +9,13 @@ source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: b463068f493305891f83056f8e46a3b38e8596a3c9251a3e2ff428720b852f63
 build:
-  skip: true  # [osx]
   number: {{ buildnumber }}
   include_recipe: false
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
-    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}  # [not osx]
+    - {{ compiler('c') }}  # [not osx]
   host:
     - python
     - setuptools
@@ -37,7 +36,7 @@ test:
     - scipy
     - scikit-learn
     - xgboost      # [not win and py<=38]
-    - lightgbm      # [not win]
+    - lightgbm      # [lnx]
     - pytest
     - mpich      # [not win]
   source_files:
