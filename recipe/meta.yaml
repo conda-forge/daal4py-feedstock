@@ -28,6 +28,7 @@ requirements:
   run:
     - python
     - dal ==2021.2.2
+    - scikit-learn-intelex ==2021.2.2
     - {{ pin_compatible('numpy') }}
 
 test:
