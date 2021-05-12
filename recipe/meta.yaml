@@ -23,12 +23,14 @@ requirements:
     - dal-devel ==2021.2.2
     - cython
     - jinja2
-    - mpich      # [not win]
+    - mpich ==3.4      # [not win]
     - clang-tools
   run:
     - python
     - dal ==2021.2.2
     - {{ pin_compatible('numpy') }}
+  run_constrained:
+    - mpich >=3.4
 
 test:
   requires:
