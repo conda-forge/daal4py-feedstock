@@ -1,4 +1,4 @@
-{% set version = "2021.2.2" %}
+{% set version = "2021.2.3" %}
 {% set buildnumber = 1 %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: b463068f493305891f83056f8e46a3b38e8596a3c9251a3e2ff428720b852f63
+  sha256: 02545f208535ca8791a1e1ab1215042dc4cf64444733b70040eb1b9eee0d03fd
 build:
   number: {{ buildnumber }}
   include_recipe: false
