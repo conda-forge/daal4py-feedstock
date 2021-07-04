@@ -23,8 +23,8 @@ if [ -z "${DALROOT}" ]; then
     export DALROOT=${PREFIX}
 fi
 
-export CC=gcc
-export CXX=g++
+export CC=x86_64-conda-linux-gnu-cc
+export CXX=x86_64-conda-linux-gnu-c++
 
 export DAAL4PY_VERSION=$PKG_VERSION
 export MPIROOT=${PREFIX}
