@@ -26,6 +26,7 @@ requirements:
     - mpich      # [not win]
     - clang-tools
     - c-compiler  # [lnx]
+    - cxx-compiler  # [lnx]
   run:
     - python
     - dal ==2021.3.0
