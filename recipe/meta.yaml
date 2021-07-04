@@ -14,8 +14,8 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}  # [win]
-    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}  # [not osx]
+#     - {{ compiler('c') }}
   host:
     - python
     - setuptools
