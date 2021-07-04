@@ -13,6 +13,9 @@ build:
   include_recipe: false
 
 requirements:
+  build:
+    - {{ compiler('cxx') }}  # [not osx]
+    - {{ compiler('c') }}  # [not osx]
   host:
     - python
     - setuptools
