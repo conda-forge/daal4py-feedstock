@@ -14,8 +14,8 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}  # [not osx]
-    - {{ compiler('c') }}  # [not osx]
+    - {{ compiler('cxx') }}  # [win]
+    - {{ compiler('c') }}  # [win]
   host:
     - python
     - setuptools
@@ -25,6 +25,7 @@ requirements:
     - jinja2
     - mpich      # [not win]
     - clang-tools
+    - gcc_linux-64 # [lnx]
   run:
     - python
     - dal ==2021.3.0
