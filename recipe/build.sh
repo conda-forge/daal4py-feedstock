@@ -24,7 +24,7 @@ if [ -z "${DALROOT}" ]; then
 fi
 
 export CC=gcc
-export CXX=g++
+export CXX=clang++
 
 export DAAL4PY_VERSION=$PKG_VERSION
 export MPIROOT=${PREFIX}
