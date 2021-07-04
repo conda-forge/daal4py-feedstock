@@ -25,7 +25,7 @@ requirements:
     - jinja2
     - mpich      # [not win]
     - clang-tools
-    - gcc_linux-64  # [lnx]
+    - c-compiler  # [lnx]
   run:
     - python
     - dal ==2021.3.0
