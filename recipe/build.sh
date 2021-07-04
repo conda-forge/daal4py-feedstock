@@ -23,7 +23,9 @@ if [ -z "${DALROOT}" ]; then
     export DALROOT=${PREFIX}
 fi
 
-export CC=gcc
+if [ "$(uname)" == "Darwin" ]; then
+    export CC=gcc
+fi
 export CXX=clang++
 
 export DAAL4PY_VERSION=$PKG_VERSION
