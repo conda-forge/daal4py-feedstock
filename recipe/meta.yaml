@@ -7,15 +7,14 @@ package:
 
 source:
   url: https://github.com/PetrovKP/daal4py/archive/{{ version }}.tar.gz
-  sha256: a196a4d0f3dc67175e2821c7eb7fbb390a2d59b36d2b906e4033e4e773f78553
+  sha256: ac3a40a25f366f3ec0bb03dbef1927fea6181a17c63bf41d4a69b9642a622406
 build:
   number: {{ buildnumber }}
   include_recipe: false
 
 requirements:
   build:
-    - {{ compiler('cxx') }}  # [win]
-#     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}  # [not osx]
   host:
     - python
     - setuptools
