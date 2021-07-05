@@ -1,5 +1,5 @@
-{% set version = "2021.2.3" %}
-{% set buildnumber = 1 %}
+{% set version = "2021.3.0" %}
+{% set buildnumber = 0 %}
 
 package:
   name: daal4py
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 02545f208535ca8791a1e1ab1215042dc4cf64444733b70040eb1b9eee0d03fd
+  sha256: 25fb5cf8e43bfb7dc579a0a8d7f06cba88b1a378a76c49e05463725c12b4096c
 build:
   number: {{ buildnumber }}
   include_recipe: false
@@ -15,19 +15,18 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}  # [not osx]
-    - {{ compiler('c') }}  # [not osx]
   host:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2021.2.2
+    - dal-devel ==2021.3.0
     - cython
     - jinja2
     - mpich      # [not win]
     - clang-tools
   run:
     - python
-    - dal ==2021.2.2
+    - dal ==2021.3.0
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -43,11 +42,13 @@ test:
     - examples
     - tests
     - daal4py
+    - onedal
   commands:
     - python -c "import daal4py"
     - mpirun -n 4 python -m unittest discover -v -s tests -p spmd*.py      # [not win]
     - python -m unittest discover -v -s tests -p test*.py
     - pytest --pyargs daal4py/sklearn/
+    - pytest --pyargs onedal/
     - python examples/run_examples.py
     - python -m daal4py examples/sycl/sklearn_sycl.py
 
