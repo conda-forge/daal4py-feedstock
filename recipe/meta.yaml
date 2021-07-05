@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
+  url: https://github.com/PetrovKP/daal4py/archive/{{ version }}.tar.gz
   sha256: a196a4d0f3dc67175e2821c7eb7fbb390a2d59b36d2b906e4033e4e773f78553
 build:
   number: {{ buildnumber }}
@@ -14,7 +14,7 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}  # [not osx]
+    - {{ compiler('cxx') }}  # [win]
 #     - {{ compiler('c') }}
   host:
     - python
