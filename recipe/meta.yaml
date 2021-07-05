@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: ac3a40a25f366f3ec0bb03dbef1927fea6181a17c63bf41d4a69b9642a622406
+  sha256: 25fb5cf8e43bfb7dc579a0a8d7f06cba88b1a378a76c49e05463725c12b4096c
 build:
   number: {{ buildnumber }}
   include_recipe: false
