@@ -1,4 +1,4 @@
-{% set version = "2021.3.0" %}
+{% set version = "2021.4.0" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 25fb5cf8e43bfb7dc579a0a8d7f06cba88b1a378a76c49e05463725c12b4096c
+  sha256: 9bf537fc057b42dcbcbdb77e8591b66ddf68be923902fccbefa4ed250e853d7d
 build:
   number: {{ buildnumber }}
   include_recipe: false
@@ -19,14 +19,14 @@ requirements:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2021.3.0
+    - dal-devel ==2021.4.0
     - cython
     - jinja2
     - mpich      # [not win]
     - clang-tools
   run:
     - python
-    - dal ==2021.3.0
+    - dal ==2021.4.0
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -75,6 +75,5 @@ extra:
   recipe-maintainers:
         # GitHub IDs for maintainers of the recipe.
     - napetrov
-    - PetrovKP
-    - SmirnovEgorRu
+    - vmeshche
     - Pahandrovich
