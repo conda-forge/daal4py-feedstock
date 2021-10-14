@@ -52,8 +52,8 @@ test:
     - python -m unittest discover -v -p 'test*.py'
     - pytest --pyargs ../daal4py/sklearn/
     - pytest --pyargs ../onedal/
-    - python ../examples/run_examples.py
-    - python -m daal4py ../examples/sycl/sklearn_sycl.py
+    - python ../examples/daal4py/run_examples.py
+    - python -m daal4py ../examples/daal4py/sycl/sklearn_sycl.py
 
 about:
   home: https://intelpython.github.io/daal4py/
