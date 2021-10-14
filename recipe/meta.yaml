@@ -46,15 +46,14 @@ test:
     - daal4py
     - onedal
   commands:
-    - pwd
-    - cd ..
+    - cd tests
     - python -c "import daal4py"
-    - mpirun -n 4 python -m unittest discover -v -s s/tests -p spmd*.py      # [not win]
-    - python -m unittest discover -v -s s/tests -p test*.py
-    - pytest --pyargs s/daal4py/sklearn/
-    - pytest --pyargs s/onedal/
-    - python s/examples/run_examples.py
-    - python -m daal4py s/examples/sycl/sklearn_sycl.py
+    - mpirun -n 4 python -m unittest discover -v -p spmd*.py      # [not win]
+    - python -m unittest discover -v -p test*.py
+    - pytest --pyargs ../daal4py/sklearn/
+    - pytest --pyargs ../onedal/
+    - python ../examples/run_examples.py
+    - python -m daal4py ../examples/sycl/sklearn_sycl.py
 
 about:
   home: https://intelpython.github.io/daal4py/
