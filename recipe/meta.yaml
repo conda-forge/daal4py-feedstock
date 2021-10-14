@@ -46,6 +46,7 @@ test:
     - daal4py
     - onedal
   commands:
+    - cd ..
     - python -c "import daal4py"
     - mpirun -n 4 python -m unittest discover -v -s tests -p spmd*.py      # [not win]
     - python -m unittest discover -v -s tests -p test*.py
