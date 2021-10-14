@@ -24,6 +24,8 @@ requirements:
     - jinja2
     - mpich      # [not win]
     - clang-tools
+    - cmake
+    - pybind11
   run:
     - python
     - dal ==2021.4.0
