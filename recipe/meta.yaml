@@ -1,4 +1,4 @@
-{% set version = "2021.3.0" %}
+{% set version = "2021.4.0" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 25fb5cf8e43bfb7dc579a0a8d7f06cba88b1a378a76c49e05463725c12b4096c
+  sha256: 312fe4db3c03e8c17cd159d18afbdce8abf71c51247fc1cef756ac994b8b24e7
 build:
   number: {{ buildnumber }}
   include_recipe: false
@@ -19,19 +19,21 @@ requirements:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2021.3.0
+    - dal-devel ==2021.4.0
     - cython
     - jinja2
     - mpich      # [not win]
     - clang-tools
+    - cmake
+    - pybind11
   run:
     - python
-    - dal ==2021.3.0
+    - dal ==2021.4.0
     - {{ pin_compatible('numpy') }}
 
 test:
   requires:
-    - pandas
+    - pandas ==1.2.5
     - scipy
     - scikit-learn
     - xgboost      # [not win and py<=38]
@@ -44,13 +46,14 @@ test:
     - daal4py
     - onedal
   commands:
+    - cd tests
     - python -c "import daal4py"
-    - mpirun -n 4 python -m unittest discover -v -s tests -p spmd*.py      # [not win]
-    - python -m unittest discover -v -s tests -p test*.py
-    - pytest --pyargs daal4py/sklearn/
-    - pytest --pyargs onedal/
-    - python examples/run_examples.py
-    - python -m daal4py examples/sycl/sklearn_sycl.py
+    - mpirun -n 4 python -m unittest discover -v -p spmd*.py      # [not win]
+    - python -m unittest discover -v -p 'test*.py'
+    - pytest --pyargs ../daal4py/sklearn/
+    - pytest --pyargs ../onedal/
+    - python ../examples/daal4py/run_examples.py
+    - python -m daal4py ../examples/daal4py/sycl/sklearn_sycl.py
 
 about:
   home: https://intelpython.github.io/daal4py/
