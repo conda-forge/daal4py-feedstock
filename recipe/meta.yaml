@@ -15,6 +15,7 @@ build:
 requirements:
   build:
     - make  # [linux or osx]
+    - cmake  # [linux or osx]
     - {{ compiler('cxx') }}  # [not osx]
   host:
     - python
