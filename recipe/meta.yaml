@@ -15,12 +15,11 @@ build:
 requirements:
   build:
     - make  # [linux or osx]
-    - cmake  # [linux or osx]
     - {{ compiler('cxx') }}  # [not osx]
   host:
     - python
     - setuptools
-    - numpy
+    - numpy ==1.19
     - dal-devel ==2021.5.1      # [linux]
     - dal-devel ==2021.5.0      # [win or osx]
     - cython
