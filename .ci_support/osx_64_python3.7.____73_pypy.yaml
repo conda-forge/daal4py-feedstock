@@ -1,19 +1,20 @@
+MACOSX_DEPLOYMENT_TARGET:
+- '10.14'
+MACOSX_SDK_VERSION:
+- '10.14'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
-cxx_compiler:
-- vs2017
-numpy:
-- '1.18'
+macos_machine:
+- x86_64-apple-darwin13.4.0
+mpich:
+- '3'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.8.* *_cpython
+- 3.7.* *_73_pypy
 target_platform:
-- win-64
-zip_keys:
-- - python
-  - numpy
+- osx-64
