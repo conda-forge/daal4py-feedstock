@@ -1,7 +1,2 @@
 conda_forge_output_validation: true
 build_with_mambabuild: False
-docker:
-  executable: docker
-  image: "condaforge/linux-anvil-comp7"
-  command: "bash"
-  interactive: True
