@@ -9,6 +9,7 @@ source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: bbe3d889f722c154e22d141f3b194d7ceaefdddc710f8139cf0cbb9f0476bf18
 build:
+  skip: True   # [python_impl == 'pypy']
   number: {{ buildnumber }}
   include_recipe: false
 
