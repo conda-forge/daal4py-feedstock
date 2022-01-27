@@ -10,11 +10,16 @@ macos_machine:
 - x86_64-apple-darwin13.4.0
 mpich:
 - '3'
+numpy:
+- '1.19'
 pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.7.* *_cpython
+- 3.7.* *_73_pypy
 target_platform:
 - osx-64
+zip_keys:
+- - python
+  - numpy
