@@ -9,6 +9,7 @@ source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: bbe3d889f722c154e22d141f3b194d7ceaefdddc710f8139cf0cbb9f0476bf18
 build:
+  skip: True   # [python_impl == 'pypy' and osx]
   number: {{ buildnumber }}
   include_recipe: false
 
@@ -18,18 +19,16 @@ requirements:
     - {{ compiler('cxx') }}  # [not osx]
   host:
     - python
-    - setuptools ==60.0.3
+    - setuptools
     - numpy
     - dal-devel ==2021.5.1      # [linux]
     - dal-devel ==2021.5.0      # [win or osx]
     - cython
     - jinja2
     - mpich      # [not win]
-    - clang-tools ==12.0.1  # [python_impl == 'pypy']
-    - clang-tools  # [python_impl == 'cpython']
+    - clang-tools
     - cmake
-    - pybind11 ==2.8.1  # [python_impl == 'pypy']
-    - pybind11  # [python_impl == 'cpython']
+    - pybind11
   run:
     - python
     - dal ==2021.5.1      # [linux]
