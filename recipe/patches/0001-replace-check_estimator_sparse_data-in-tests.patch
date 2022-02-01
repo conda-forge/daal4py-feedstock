@@ -1,0 +1,12 @@
+diff --git a/onedal/svm/tests/test_svc.py b/onedal/svm/tests/test_svc.py
+index b69965b..9697254 100644
+--- a/onedal/svm/tests/test_svc.py
++++ b/onedal/svm/tests/test_svc.py
+@@ -58,6 +58,7 @@ def test_estimator():
+         'check_estimators_fit_returns_self',  # ValueError: empty metadata
+         'check_classifiers_train',  # assert y_pred.shape == (n_samples,)
+         'check_estimators_unfitted',  # Call 'fit' with appropriate arguments
++        'check_estimator_sparse_data',  # This fails with scikit-learn v1.0.2
+     ], dummy)
+     check_estimator(SVC())
+     _restore_from_saved(md, saved)
