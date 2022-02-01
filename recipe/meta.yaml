@@ -1,4 +1,4 @@
-{% set version = "2021.4.0" %}
+{% set version = "2021.5.0" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,19 +7,24 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 312fe4db3c03e8c17cd159d18afbdce8abf71c51247fc1cef756ac994b8b24e7
+  sha256: b0298ed384554077e8c49feb8092e895eb0f93dc98bc059cab8aede8a259acd8
+  patches:
+    - patches/0001-replace-check_estimator_sparse_data-in-tests.patch
 build:
+  skip: True   # [python_impl == 'pypy' and osx]
   number: {{ buildnumber }}
   include_recipe: false
 
 requirements:
   build:
+    - make  # [linux or osx]
     - {{ compiler('cxx') }}  # [not osx]
   host:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2021.4.0
+    - dal-devel ==2021.5.1      # [linux]
+    - dal-devel ==2021.5.0      # [win or osx]
     - cython
     - jinja2
     - mpich      # [not win]
@@ -28,7 +33,8 @@ requirements:
     - pybind11
   run:
     - python
-    - dal ==2021.4.0
+    - dal ==2021.5.1      # [linux]
+    - dal ==2021.5.0      # [win or osx]
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -80,3 +86,4 @@ extra:
     - napetrov
     - vmeshche
     - Pahandrovich
+    - itearsl
