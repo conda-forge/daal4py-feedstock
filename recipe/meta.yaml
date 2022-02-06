@@ -39,8 +39,8 @@ requirements:
 
 test:
   requires:
-    - pandas ==1.2.5  # [py<38]
-    - pandas  # [py>=38]
+    - pandas ==1.2.5  # [python_impl == 'pypy']
+    - pandas  # [python_impl != 'pypy']
     - scipy
     - scikit-learn
     - xgboost      # [not win and py<=38]
