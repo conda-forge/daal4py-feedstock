@@ -39,7 +39,7 @@ requirements:
 
 test:
   requires:
-    - pandas ==1.2.5
+    - pandas
     - scipy
     - scikit-learn
     - xgboost      # [not win and py<=38]
