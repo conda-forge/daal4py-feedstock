@@ -7,8 +7,8 @@ else
 fi
 
 # if dpc++ vars path is specified
-if [ ! -z "${DPCPPROOT}" ]; then
-    source ${DPCPPROOT}/env/vars.sh
+if [ -z "${DPCPPROOT}" ] && [ "$(uname)" != "Darwin" ]; then
+    export DPCPPROOT=${PREFIX}
 fi
 
 # if DAALROOT not exists then provide PREFIX
