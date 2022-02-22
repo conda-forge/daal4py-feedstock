@@ -18,8 +18,7 @@ build:
 requirements:
   build:
     - make  # [linux or osx]
-    - {{ compiler('dpcpp') }}  # [linux]
-    - {{ compiler('cxx') }}  # [win]
+    - {{ compiler('cxx') }}  # [not osx]
   host:
     - python
     - setuptools
