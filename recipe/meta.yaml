@@ -20,9 +20,6 @@ requirements:
     - make  # [linux or osx]
     - {{ compiler('dpcpp') }}  # [linux]
     - {{ compiler('cxx') }}  # [win or linux]
-    - clang-8      # [linux]
-    - libc++-8-dev      # [linux]
-    - libc++abi-8-dev      # [linux]
   host:
     - python
     - setuptools
