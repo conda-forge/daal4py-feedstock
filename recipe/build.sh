@@ -9,6 +9,7 @@ fi
 # if dpc++ vars path is specified
 if [ -z "${DPCPPROOT}" ] && [ "$(uname)" != "Darwin" ]; then
     export DPCPPROOT=${PREFIX}
+    export CFLAGS=-stdlib=libc++ $CFLAGS
 fi
 
 # if DAALROOT not exists then provide PREFIX
