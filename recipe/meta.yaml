@@ -32,6 +32,9 @@ requirements:
     - clang-tools
     - cmake
     - pybind11
+    - clang-8      # [linux]
+    - libc++-8-dev      # [linux]
+    - libc++abi-8-dev      # [linux]
   run:
     - python
     - dal ==2021.5.1      # [linux]
