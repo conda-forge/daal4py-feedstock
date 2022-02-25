@@ -30,7 +30,6 @@ requirements:
     - cython
     - jinja2
     - mpich      # [not win]
-    - impi-devel  # [not osx]
     - clang-tools
     - cmake
     - pybind11
