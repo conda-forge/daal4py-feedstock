@@ -19,7 +19,8 @@ requirements:
   build:
     - make  # [linux or osx]
     - {{ compiler('dpcpp') }}  # [linux]
-    - {{ compiler('cxx') }}  # [win or linux]
+    - {{ compiler('c') }}  # [linux]
+    - {{ compiler('cxx') }}  # [not osx]
   host:
     - python
     - setuptools
@@ -32,9 +33,6 @@ requirements:
     - clang-tools
     - cmake
     - pybind11
-    - gcc-4.8      # [linux]
-    - libstdc++-4.8      # [linux]
-    - libc++-dev      # [linux]
   run:
     - python
     - dal ==2021.5.1      # [linux]
