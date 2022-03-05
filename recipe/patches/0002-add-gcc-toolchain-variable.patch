@@ -7,7 +7,7 @@ index a252a1d..96a438c 100755
          library_dir_plat = ['-L' + libdir for libdir in libdirs]
          additional_linker_opts = ['-o', f'{targetprefix}{targetname}{targetsuffix}']
 +    if IS_LIN:
-+        eca += ['--gcc-toolchain=$BUILD_PREFIX/x86_64-conda-linux-gnu']
++        eca += ['--gcc-toolchain=$BUILD_PREFIX']
      eca += ['-c']
      libs = [f'{lib_prefix}{str(item)}{lib_suffix}' for item in libs]
  
