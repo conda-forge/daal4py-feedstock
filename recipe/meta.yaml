@@ -33,6 +33,9 @@ requirements:
     - clang-tools
     - cmake
     - pybind11
+    - keyutils
+    - pip
+    - wheel
   run:
     - python
     - dal ==2021.5.1      # [linux]
