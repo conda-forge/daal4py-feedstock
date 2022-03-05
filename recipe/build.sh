@@ -9,7 +9,7 @@ fi
 # if dpc++ vars path is specified
 if [ -z "${DPCPPROOT}" ] && [ "$(uname)" != "Darwin" ]; then
     export DPCPPROOT=${PREFIX}
-    export CPATH=${BUILD_PREFIX}/x86_64-conda-linux-gnu/include/c++/11.2.0:${BUILD_PREFIX}/x86_64-conda-linux-gnu/include/c++/11.2.0/x86_64-conda-linux-gnu:$CPATH
+    export CPATH=${BUILD_PREFIX}/x86_64-conda-linux-gnu/include/c++/11.2.0:${BUILD_PREFIX}/x86_64-conda-linux-gnu/include/c++/11.2.0/x86_64-conda-linux-gnu:${BUILD_PREFIX}/x86_64-conda-linux-gnu/include/c++/11.2.0/x86_64-conda-linux-gnu/sysroot/usr/include:$CPATH
 fi
 
 # if DAALROOT not exists then provide PREFIX
