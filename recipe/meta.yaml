@@ -1,4 +1,4 @@
-{% set version = "2021.5.0" %}
+{% set version = "2021.6.0" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: b0298ed384554077e8c49feb8092e895eb0f93dc98bc059cab8aede8a259acd8
+  sha256: a75acdc518f0af262a86952ee1040d5c8b9a9dbd4bf798fd974a917ee5b47e68
   patches:
     - patches/0001-replace-check_estimator_sparse_data-in-tests.patch
 build:
-  skip: True   # [python_impl == 'pypy' and osx]
+  skip: true  # [python_impl == 'pypy' and osx]
   number: {{ buildnumber }}
   include_recipe: false
 
