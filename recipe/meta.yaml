@@ -1,4 +1,4 @@
-{% set version = "2021.5.0" %}
+{% set version = "2021.6.0" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: b0298ed384554077e8c49feb8092e895eb0f93dc98bc059cab8aede8a259acd8
+  sha256: a75acdc518f0af262a86952ee1040d5c8b9a9dbd4bf798fd974a917ee5b47e68
   patches:
     - patches/0001-replace-check_estimator_sparse_data-in-tests.patch
 build:
@@ -23,8 +23,7 @@ requirements:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2021.5.1      # [linux]
-    - dal-devel ==2021.5.0      # [win or osx]
+    - dal-devel ==2021.6.0
     - cython
     - jinja2
     - mpich      # [not win]
@@ -33,8 +32,7 @@ requirements:
     - pybind11
   run:
     - python
-    - dal ==2021.5.1      # [linux]
-    - dal ==2021.5.0      # [win or osx]
+    - dal ==2021.6.0
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -42,7 +40,7 @@ test:
     - pandas ==1.2.5  # [python_impl == 'pypy']
     - pandas  # [python_impl != 'pypy']
     - scipy
-    - scikit-learn
+    - scikit-learn <1.1
     - xgboost      # [not win and py<=38]
     - lightgbm      # [lnx]
     - pytest
@@ -85,6 +83,4 @@ extra:
   recipe-maintainers:
         # GitHub IDs for maintainers of the recipe.
     - napetrov
-    - vmeshche
-    - Pahandrovich
-    - itearsl
+    - Alexsandruss
