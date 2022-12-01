@@ -11,6 +11,7 @@ source:
   patches:
     - patches/0001-replace-check_estimator_sparse_data-in-tests.patch
     - patches/0002-sklearn1_1-wrappers-update.patch
+    - patches/0003-numpy-versions-fix.patch
 build:
   skip: true  # [python_impl == 'pypy' and osx]
   number: {{ buildnumber }}
