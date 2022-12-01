@@ -1,14 +1,14 @@
 diff --git a/onedal/svm/svm.py b/onedal/svm/svm.py
-index 462a41c..dacc307 100644
+index 462a41c..ee7132f 100644
 --- a/onedal/svm/svm.py
 +++ b/onedal/svm/svm.py
-@@ -67,6 +67,9 @@ class BaseSVM(BaseEstimator, metaclass=ABCMeta):
-         self.break_ties = break_ties
-         self.algorithm = algorithm
-         self.svm_type = svm_type
+@@ -165,6 +165,9 @@ class BaseSVM(BaseEstimator, metaclass=ABCMeta):
+ 
+     def _get_onedal_params(self, data):
+         max_iter = 10000 if self.max_iter == -1 else self.max_iter
 +        # TODO: remove this workaround
 +        # when oneDAL SVM starts support of 'n_iterations' result
 +        self.n_iter_ = 1 if max_iter < 1 else max_iter
- 
-     def _compute_gamma_sigma(self, gamma, X):
-         if isinstance(gamma, str):
+         class_count = 0 if self.classes_ is None else len(self.classes_)
+         return {
+             'fptype': 'float' if data.dtype is np.dtype('float32') else 'double',
