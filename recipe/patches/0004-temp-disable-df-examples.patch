@@ -1,19 +1,37 @@
+diff --git a/examples/daal4py/run_examples.py b/examples/daal4py/run_examples.py
+index ad7bec3..3dd89e1 100755
+--- a/examples/daal4py/run_examples.py
++++ b/examples/daal4py/run_examples.py
+@@ -126,7 +126,9 @@ req_version['sycl/kmeans_batch.py'] = \
+ req_version['sycl/pca_transform_batch.py'] = (2021, 'P', 200)
+ req_version['sycl/decision_forest_classification_hist_batch.py'] = (2021, 'P', 200)
+ req_version['sycl/decision_forest_regression_hist_batch.py'] = (2021, 'P', 200)
+-req_version['decision_forest_classification_hist_batch.py'] = (2021, 'P', 200)
++req_version['decision_forest_classification_hist_batch.py'] = (2022, 'P', 0)
++req_version['decision_forest_classification_default_dense_batch.py'] = (2022, 'P', 0)
++req_version['decision_forest_classification_traverse_batch.py'] = (2022, 'P', 0)
+ req_version['decision_forest_regression_hist_batch.py'] = (2021, 'P', 200)
+ 
+ req_device = defaultdict(lambda: [])
 diff --git a/tests/test_examples.py b/tests/test_examples.py
-index 98c60a9..43a9100 100755
+index 98c60a9..9e901c0 100755
 --- a/tests/test_examples.py
 +++ b/tests/test_examples.py
-@@ -177,14 +177,6 @@ gen_examples = [
-     ('cholesky_batch', 'cholesky_batch.csv', 'choleskyFactor'),
+@@ -178,13 +178,13 @@ gen_examples = [
      ('covariance_batch', 'covariance.csv', 'covariance'),
      ('covariance_streaming', 'covariance.csv', 'covariance'),
--    ('decision_forest_classification_default_dense_batch',
+     ('decision_forest_classification_default_dense_batch',
 -     None, lambda r: r[1].prediction),
--    ('decision_forest_classification_hist_batch',
++     None, lambda r: r[1].prediction, (2022, 'P', 0)),
+     ('decision_forest_classification_hist_batch',
 -     None, lambda r: r[1].prediction, (2021, 'P', 200)),
--    ('decision_forest_regression_default_dense_batch',
++     None, lambda r: r[1].prediction, (2022, 'P', 0)),
+     ('decision_forest_regression_default_dense_batch',
 -     'decision_forest_regression_batch.csv', lambda r: r[1].prediction, (2021, 'P', 600)),
--    ('decision_forest_regression_hist_batch',
++     'decision_forest_regression_batch.csv', lambda r: r[1].prediction, (2022, 'P', 0)),
+     ('decision_forest_regression_hist_batch',
 -     'decision_forest_regression_batch.csv', lambda r: r[1].prediction, (2021, 'P', 600)),
++     'decision_forest_regression_batch.csv', lambda r: r[1].prediction, (2022, 'P', 0)),
      ('decision_tree_classification_batch', 'decision_tree_classification_batch.csv',
       lambda r: r[1].prediction),
      ('decision_tree_regression_batch', 'decision_tree_regression_batch.csv',
