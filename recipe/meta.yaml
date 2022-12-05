@@ -57,8 +57,11 @@ test:
     - python -c "import daal4py"
     - mpirun -n 4 python -m unittest discover -v -p spmd*.py      # [not win]
     - python -m unittest discover -v -p 'test*.py'
-    - pytest --pyargs ../daal4py/sklearn/
-    - pytest --pyargs ../onedal/
+    - >
+      pytest --verbose --pyargs ../daal4py/sklearn/
+      --deselect="daal4py/sklearn/ensemble/tests/test_decision_forest.py::test_classifier_big_estimators_iris[8000]"
+      --deselect="daal4py/sklearn/ensemble/tests/test_decision_forest.py::test_mse_regressor_big_estimators_iris[8000]"
+    - pytest --verbose --pyargs ../onedal/
     - python ../examples/daal4py/run_examples.py
     - python -m daal4py ../examples/daal4py/sycl/sklearn_sycl.py
 
