@@ -12,6 +12,7 @@ source:
     - patches/0001-replace-check_estimator_sparse_data-in-tests.patch
     - patches/0002-sklearn1_1-wrappers-update.patch
     - patches/0003-svm-n-iter-result-workaround.patch
+    - patches/0004-temp-disable-df-examples.patch
 build:
   skip: true  # [python_impl == 'pypy' and osx]
   number: {{ buildnumber }}
