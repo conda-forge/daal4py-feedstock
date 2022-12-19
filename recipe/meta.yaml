@@ -1,4 +1,4 @@
-{% set version = "2021.7.1" %}
+{% set version = "2023.0.1" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,12 +7,9 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: a40dd2974be04d9de621f1dd65473e556f43107e9d0d7e924ac49d94fb662455
+  sha256: 3d226a7897b33951928b59fc81499163eb02f0eec661eb27974f6fd737ec6051
   patches:
-    - patches/0001-replace-check_estimator_sparse_data-in-tests.patch
-    - patches/0002-sklearn1_1-wrappers-update.patch
-    - patches/0003-svm-n-iter-result-workaround.patch
-    - patches/0004-temp-disable-df-examples.patch
+    - patches/0005-deprecate-boston-dataset-tests.patch
 build:
   skip: true  # [python_impl == 'pypy' and osx]
   number: {{ buildnumber }}
@@ -26,16 +23,16 @@ requirements:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2021.7.1
+    - dal-devel ==2023.0.0
     - cython
     - jinja2
     - mpich      # [not win]
-    - clang-tools
+    - clang-format
     - cmake
     - pybind11
   run:
     - python
-    - dal ==2021.7.1
+    - dal ==2023.0.0
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -62,7 +59,7 @@ test:
       pytest --verbose --pyargs ../daal4py/sklearn/
       --deselect="daal4py/sklearn/ensemble/tests/test_decision_forest.py::test_classifier_big_estimators_iris[8000]"
       --deselect="daal4py/sklearn/ensemble/tests/test_decision_forest.py::test_mse_regressor_big_estimators_iris[8000]"
-    - pytest --verbose --pyargs ../onedal/
+    - pytest --verbose --pyargs ../onedal/ --deselect="onedal/common/tests/test_policy.py"
     - python ../examples/daal4py/run_examples.py
     - python -m daal4py ../examples/daal4py/sycl/sklearn_sycl.py
 
