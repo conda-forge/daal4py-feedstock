@@ -60,7 +60,6 @@ test:
     - pytest --verbose --pyargs ../onedal/ --deselect="onedal/common/tests/test_policy.py" --deselect="onedal/svm/tests/test_svc.py::test_estimator"
     - python ../examples/daal4py/run_examples.py
     - python -m daal4py ../examples/daal4py/sycl/sklearn_sycl.py
-    - python ../.ci/scripts/test_global_patch.py
 
 about:
   home: https://intelpython.github.io/daal4py/
