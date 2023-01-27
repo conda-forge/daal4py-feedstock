@@ -1,0 +1,225 @@
+diff --git a/scripts/CMakeLists.txt b/scripts/CMakeLists.txt
+index b9a2a97..a212057 100755
+--- a/scripts/CMakeLists.txt
++++ b/scripts/CMakeLists.txt
+@@ -69,9 +69,11 @@ if(IFACE STREQUAL "host")
+     set(TARGET "_onedal_py_host")
+ 
+     if(WIN32)
+-        set(ONEDAL_LIBRARIES "onedal_dll" "onedal_core_dll")
++        set(ONEDAL_LIBRARIES "onedal_dll.${ONEDAL_MAJOR_BINARY}" "onedal_core_dll.${ONEDAL_MAJOR_BINARY}")
++    elseif(APPLE)
++        set(ONEDAL_LIBRARIES "onedal.${ONEDAL_MAJOR_BINARY}" "onedal_core.${ONEDAL_MAJOR_BINARY}" "onedal_thread.${ONEDAL_MAJOR_BINARY}")
+     else()
+-        set(ONEDAL_LIBRARIES "onedal" "onedal_core" "onedal_thread")
++        set(ONEDAL_LIBRARIES "-l:libonedal.so.${ONEDAL_MAJOR_BINARY}" "-l:libonedal_core.so.${ONEDAL_MAJOR_BINARY}" "-l:libonedal_thread.so.${ONEDAL_MAJOR_BINARY}")
+     endif()
+ 
+     list(APPEND COMPILE_DEFINITIONS "NPY_NO_DEPRECATED_API=NPY_1_7_API_VERSION")
+@@ -88,9 +90,11 @@ elseif(IFACE STREQUAL "dpc")
+     endif()
+ 
+     if(WIN32)
+-        set(ONEDAL_LIBRARIES "onedal_dpc_dll" "onedal_core_dll")
++        set(ONEDAL_LIBRARIES "onedal_dpc_dll.${ONEDAL_MAJOR_BINARY}" "onedal_core_dll.${ONEDAL_MAJOR_BINARY}")
++    elseif(APPLE)
++        set(ONEDAL_LIBRARIES "onedal_dpc.${ONEDAL_MAJOR_BINARY}" "onedal_core.${ONEDAL_MAJOR_BINARY}" "onedal_thread.${ONEDAL_MAJOR_BINARY}")
+     else()
+-        set(ONEDAL_LIBRARIES "onedal_dpc" "onedal_core" "onedal_thread")
++        set(ONEDAL_LIBRARIES "-l:libonedal_dpc.so.${ONEDAL_MAJOR_BINARY}" "-l:libonedal_core.so.${ONEDAL_MAJOR_BINARY}" "-l:libonedal_thread.so.${ONEDAL_MAJOR_BINARY}")
+     endif()
+ 
+     list(APPEND COMPILE_DEFINITIONS
+diff --git a/scripts/build_backend.py b/scripts/build_backend.py
+index eebad04..dd314e4 100755
+--- a/scripts/build_backend.py
++++ b/scripts/build_backend.py
+@@ -100,7 +100,7 @@ def build_cpp(cc, cxx, sources, targetprefix, targetname, targetsuffix, libs, li
+     os.chdir(d4p_dir)
+ 
+ 
+-def custom_build_cmake_clib(iface, cxx=None):
++def custom_build_cmake_clib(iface, cxx=None, onedal_major_binary_version=1):
+     import pybind11
+ 
+     root_dir = os.path.normpath(jp(os.path.dirname(__file__), ".."))
+@@ -135,6 +135,7 @@ def custom_build_cmake_clib(iface, cxx=None):
+         "-DCMAKE_INSTALL_PREFIX=" + install_directory,
+         "-DCMAKE_PREFIX_PATH=" + install_directory,
+         "-DIFACE=" + iface,
++        "-DONEDAL_MAJOR_BINARY=" + str(onedal_major_binary_version),
+         "-DPYTHON_INCLUDE_DIR=" + python_include,
+         "-DNUMPY_INCLUDE_DIRS=" + numpy_include,
+         "-DPYTHON_LIBRARY_DIR=" + python_library_dir,
+diff --git a/scripts/version.py b/scripts/version.py
+index acba251..0723b09 100755
+--- a/scripts/version.py
++++ b/scripts/version.py
+@@ -19,23 +19,37 @@ import re
+ from os.path import join as jp
+ 
+ 
+-def get_onedal_version(dal_root):
++def find_defines(defines: list, file_obj):
++    defines_dict = {define: '' for define in defines}
++    for elem in file_obj:
++        for define in defines:
++            if f'#define {define}' in elem:
++                match = re.match(rf'#define {define} (\d+)', elem)
++                if match:
++                    defines_dict[define] = match.group(1)
++    return defines_dict
++
++
++def get_onedal_version(dal_root, version_type='release'):
+     """Parse oneDAL version strings"""
+ 
++    if version_type not in ['release', 'binary']:
++        raise ValueError(f'Incorrect version type "{version_type}"')
++
+     header_version = jp(dal_root, 'include', 'services', 'library_version_info.h')
+     version = ""
+ 
+-    major, minnor = "", ""
+     with open(header_version, 'r') as header:
+-        for elem in header:
+-            if '#define __INTEL_DAAL__' in elem:
+-                match = re.match(r'#define __INTEL_DAAL__ (\d+)', elem)
+-                if match:
+-                    major = match.group(1)
+-
+-            if '#define __INTEL_DAAL_MINOR__' in elem:
+-                match = re.match(r'#define __INTEL_DAAL_MINOR__ (\d+)', elem)
+-                if match:
+-                    minnor = match.group(1)
+-    version = int(major) * 10000 + int(minnor) * 100
++        if version_type == 'release':
++            version = find_defines(
++                ['__INTEL_DAAL__', '__INTEL_DAAL_MINOR__', '__INTEL_DAAL_UPDATE__'],
++                header)
++            version = int(version['__INTEL_DAAL__']) * 10000 + \
++                int(version['__INTEL_DAAL_MINOR__']) * 100 + \
++                int(version['__INTEL_DAAL_UPDATE__'])
++        elif version_type == 'binary':
++            version = find_defines(
++                ['__INTEL_DAAL_MAJOR_BINARY__', '__INTEL_DAAL_MINOR_BINARY__'], header)
++            version = int(version['__INTEL_DAAL_MAJOR_BINARY__']), \
++                int(version['__INTEL_DAAL_MINOR_BINARY__'])
+     return version
+diff --git a/setup.py b/setup.py
+index 82987c7..8f56b48 100644
+--- a/setup.py
++++ b/setup.py
+@@ -23,6 +23,7 @@ from setuptools import setup, Extension
+ import setuptools.command.develop as orig_develop
+ import distutils.command.build as orig_build
+ from os.path import join as jp
++import pathlib
+ from distutils.sysconfig import get_config_vars
+ from Cython.Build import cythonize
+ import glob
+@@ -57,24 +58,14 @@ elif sys.platform in ['win32', 'cygwin']:
+ else:
+     assert False, sys.platform + ' not supported'
+ 
++ONEDAL_MAJOR_BINARY_VERSION, ONEDAL_MINOR_BINARY_VERSION = get_onedal_version(
++    dal_root, 'binary')
+ ONEDAL_VERSION = get_onedal_version(dal_root)
+ ONEDAL_2021_3 = 2021 * 10000 + 3 * 100
++ONEDAL_2023_0_1 = 2023 * 10000 + 0 * 100 + 1
+ is_onedal_iface = \
+     os.environ.get('OFF_ONEDAL_IFACE') is None and ONEDAL_VERSION >= ONEDAL_2021_3
+ 
+-
+-def get_win_major_version():
+-    lib_name = find_library('onedal_core')
+-    if lib_name is None:
+-        return ''
+-    version = lib_name.split('\\')[-1].split('.')[1]
+-    try:
+-        version = '.' + str(int(version))
+-    except ValueError:
+-        version = ''
+-    return version
+-
+-
+ d4p_version = (os.environ['DAAL4PY_VERSION'] if 'DAAL4PY_VERSION' in os.environ
+                else time.strftime('%Y%m%d.%H%M%S'))
+ 
+@@ -154,15 +145,21 @@ def get_daal_type_defines():
+ 
+ 
+ def get_libs(iface='daal'):
++    major_version = ONEDAL_MAJOR_BINARY_VERSION
+     if IS_WIN:
+-        major_version = get_win_major_version()
+-        libraries_plat = [f'onedal_core_dll{major_version}']
+-        onedal_lib = [f'onedal_dll{major_version}']
+-        onedal_dpc_lib = [f'onedal_dpc_dll{major_version}']
++        libraries_plat = [f'onedal_core_dll.{major_version}']
++        onedal_lib = [f'onedal_dll.{major_version}']
++        onedal_dpc_lib = [f'onedal_dpc_dll.{major_version}']
++    elif IS_MAC:
++        libraries_plat = [f'onedal_core.{major_version}',
++                          f'onedal_thread.{major_version}']
++        onedal_lib = [f'onedal.{major_version}']
++        onedal_dpc_lib = [f'onedal_dpc.{major_version}']
+     else:
+-        libraries_plat = ['onedal_core', 'onedal_thread']
+-        onedal_lib = ['onedal']
+-        onedal_dpc_lib = ['onedal_dpc']
++        libraries_plat = [f':libonedal_core.so.{major_version}',
++                          f':libonedal_thread.so.{major_version}']
++        onedal_lib = [f':libonedal.so.{major_version}']
++        onedal_dpc_lib = [f':libonedal_dpc.so.{major_version}']
+     if iface == 'onedal':
+         libraries_plat = onedal_lib + libraries_plat
+     elif iface == 'onedal_dpc':
+@@ -343,23 +340,43 @@ class custom_build():
+     def run(self):
+         if is_onedal_iface:
+             cxx = os.getenv('CXX', 'cl' if IS_WIN else 'g++')
+-            build_backend.custom_build_cmake_clib('host', cxx)
++            build_backend.custom_build_cmake_clib(
++                'host', cxx, ONEDAL_MAJOR_BINARY_VERSION)
+         if dpcpp:
+             build_oneapi_backend()
+             if is_onedal_iface:
+-                build_backend.custom_build_cmake_clib('dpc')
++                build_backend.custom_build_cmake_clib('dpc', ONEDAL_MAJOR_BINARY_VERSION)
++
++    def post_build(self):
++        if IS_MAC:
++            import subprocess
++            # manually fix incorrect install_name of oneDAL 2023.0.1 libs
++            major_version = ONEDAL_MAJOR_BINARY_VERSION
++            major_is_available = find_library(
++                f'libonedal_core.{major_version}.dylib') is not None
++            if major_is_available and ONEDAL_VERSION == ONEDAL_2023_0_1:
++                extension_libs = list(pathlib.Path('.').glob('**/*darwin.so'))
++                onedal_libs = ['onedal', 'onedal_dpc', 'onedal_core', 'onedal_thread']
++                for ext_lib in extension_libs:
++                    for onedal_lib in onedal_libs:
++                        subprocess.call('/usr/bin/install_name_tool -change '
++                                        f'lib{onedal_lib}.dylib '
++                                        f'lib{onedal_lib}.{major_version}.dylib '
++                                        f'{ext_lib}'.split(' '), shell=False)
+ 
+ 
+ class develop(orig_develop.develop, custom_build):
+     def run(self):
+         custom_build.run(self)
+-        return super().run()
++        super().run()
++        custom_build.post_build(self)
+ 
+ 
+ class build(orig_build.build, custom_build):
+     def run(self):
+         custom_build.run(self)
+-        return super().run()
++        super().run()
++        custom_build.post_build(self)
+ 
+ 
+ project_urls = {
