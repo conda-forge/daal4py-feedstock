@@ -107,7 +107,7 @@ index acba251..0723b09 100755
 +                int(version['__INTEL_DAAL_MINOR_BINARY__'])
      return version
 diff --git a/setup.py b/setup.py
-index 82987c7..1d3e1f3 100644
+index 82987c7..8f56b48 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -23,6 +23,7 @@ from setuptools import setup, Extension
@@ -203,7 +203,7 @@ index 82987c7..1d3e1f3 100644
 +                        subprocess.call('/usr/bin/install_name_tool -change '
 +                                        f'lib{onedal_lib}.dylib '
 +                                        f'lib{onedal_lib}.{major_version}.dylib '
-+                                        f'{ext_lib}', shell=False)
++                                        f'{ext_lib}'.split(' '), shell=False)
  
  
  class develop(orig_develop.develop, custom_build):
