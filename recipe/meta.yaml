@@ -1,5 +1,5 @@
-{% set version = "2023.0.1" %}
-{% set buildnumber = 2 %}
+{% set version = "2023.0.2" %}
+{% set buildnumber = 0 %}
 
 package:
   name: daal4py
@@ -7,10 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 3d226a7897b33951928b59fc81499163eb02f0eec661eb27974f6fd737ec6051
-  patches:
-    - patches/0005-deprecate-boston-dataset-tests.patch
-    - patches/0006-setup-helpers.patch
+  sha256: 492d02bb4a8a2d620988b38e5ec3b4217e3023d9145f582e06cf776200914691
 build:
   skip: true  # [python_impl == 'pypy' and osx]
   number: {{ buildnumber }}
