@@ -1,4 +1,4 @@
-{% set version = "2023.0.2" %}
+{% set version = "2023.1.1" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: e289f49b34f2df3a3c5650c38a0d3080062169a9ba6e4bdbd154a4f0b982800a
+  sha256: 451b8c5e6d3a0f4b147a68ffe37bbddf7fc2e706083ec3e57479ec4421a7d963
 build:
   skip: true  # [python_impl == 'pypy' and osx]
   number: {{ buildnumber }}
@@ -21,7 +21,8 @@ requirements:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2023.0.1
+    - dal-devel ==2023.1.1  # [not osx]
+    - dal-devel ==2023.0.1  # [osx]
     - cython
     - jinja2
     - mpich      # [not win]
@@ -30,7 +31,8 @@ requirements:
     - pybind11
   run:
     - python
-    - dal ==2023.0.1
+    - dal ==2023.1.1  # [not osx]
+    - dal ==2023.0.1  # [osx]
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -41,6 +43,7 @@ test:
     - scikit-learn
     - xgboost      # [not win and py<=38]
     - lightgbm      # [lnx]
+    - catboost      # [py<=310]
     - pytest
     - mpich      # [not win]
   source_files:
@@ -53,9 +56,9 @@ test:
     - python -c "import daal4py"
     - mpirun -n 4 python -m unittest discover -v -p spmd*.py      # [not win]
     - python -m unittest discover -v -p 'test*[!ex].py'
-    - pytest --verbose --pyargs ../daal4py/sklearn/
-    - pytest --verbose --pyargs ../onedal/ --deselect="onedal/common/tests/test_policy.py" --deselect="onedal/svm/tests/test_svc.py::test_estimator"
-    - python ../examples/daal4py/run_examples.py
+    - pytest --verbose --pyargs ../daal4py/sklearn
+    - pytest --verbose --pyargs ../onedal
+    - python run_examples.py
     - python -m daal4py ../examples/daal4py/sycl/sklearn_sycl.py
 
 about:
