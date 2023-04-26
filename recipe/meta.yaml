@@ -43,6 +43,7 @@ test:
     - scikit-learn
     - xgboost      # [not win and py<=38]
     - lightgbm      # [lnx]
+    - catboost      # [py<=310]
     - pytest
     - mpich      # [not win]
   source_files:
