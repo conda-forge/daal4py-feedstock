@@ -21,8 +21,7 @@ requirements:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2023.1.1  # [not osx]
-    - dal-devel ==2023.0.1  # [osx]
+    - dal-devel ==2023.2.1
     - cython
     - jinja2
     - mpich      # [not win]
@@ -31,8 +30,7 @@ requirements:
     - pybind11
   run:
     - python
-    - dal ==2023.1.1  # [not osx]
-    - dal ==2023.0.1  # [osx]
+    - dal ==2023.2.1
     - {{ pin_compatible('numpy') }}
 
 test:
