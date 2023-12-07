@@ -9,19 +9,19 @@ source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
   sha256: 43e1c6da931bacd6e2ff94e8ff281dca13f55bd819c32cb23a0c3c01273650fc
 build:
-  skip: true  # [python_impl == 'pypy' and osx]
+  skip: true  # [not (linux64 or win)]
   number: {{ buildnumber }}
   include_recipe: false
 
 requirements:
   build:
-    - make  # [linux or osx]
-    - {{ compiler('cxx') }}  # [not osx]
+    - make  # [linux]
+    - {{ compiler('cxx') }}  # [linux64 or win]
   host:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2023.2.1
+    - dal-devel ==2024.0.1
     - cython
     - jinja2
     - mpich      # [not win]
@@ -30,7 +30,7 @@ requirements:
     - pybind11
   run:
     - python
-    - dal ==2023.2.1
+    - dal ==2024.0.1
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -41,7 +41,6 @@ test:
     - scikit-learn
     - xgboost      # [not win and py<=38]
     - lightgbm      # [lnx]
-    - catboost      # [py<=310]
     - pytest
     - mpich      # [not win]
   source_files:
@@ -83,3 +82,4 @@ extra:
         # GitHub IDs for maintainers of the recipe.
     - napetrov
     - Alexsandruss
+    - maria-Petrova
