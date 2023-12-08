@@ -40,7 +40,7 @@ test:
     - scipy
     - scikit-learn
     - xgboost      # [not win and py<=38]
-    - lightgbm      # [lnx]
+    - lightgbm      # [linux]
     - pytest
     - mpich      # [not win]
   source_files:
@@ -56,7 +56,6 @@ test:
     - pytest --verbose --pyargs ../daal4py/sklearn
     - pytest --verbose --pyargs ../onedal
     - python run_examples.py
-    - python -m daal4py ../examples/daal4py/sycl/sklearn_sycl.py
 
 about:
   home: https://intelpython.github.io/daal4py/
