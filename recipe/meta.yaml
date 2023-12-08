@@ -39,8 +39,8 @@ test:
     - pandas  # [python_impl != 'pypy']
     - scipy
     - scikit-learn
-    - xgboost      # [not win and py<=38]
-    - lightgbm      # [linux]
+    - xgboost
+    - lightgbm
     - pytest
     - mpich      # [not win]
   source_files:
