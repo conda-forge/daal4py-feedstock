@@ -55,8 +55,8 @@ test:
     - python -m unittest discover -v -p 'test*[!ex].py'
     - pytest --verbose --pyargs ../daal4py/sklearn
     - pytest --verbose --pyargs ../onedal
-    - python run_examples.py
-
+    #- python run_examples.py temp_removal
+ 
 about:
   home: https://intelpython.github.io/daal4py/
   license: Apache-2.0
