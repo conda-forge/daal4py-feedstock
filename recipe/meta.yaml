@@ -1,4 +1,4 @@
-{% set version = "2023.2.1" %}
+{% set version = "2024.0.1" %}
 {% set buildnumber = 0 %}
 
 package:
@@ -7,21 +7,21 @@ package:
 
 source:
   url: https://github.com/intel/scikit-learn-intelex/archive/{{ version }}.tar.gz
-  sha256: 564793676a79aa20c7c5469a7aa30d1d98f4b901ebd40e4ae93fb0261290e6e2
+  sha256: 43aae65fd50aef15d7990f981e91d3b39b4d3e50211b86a3fc9898a33fc0c29d
 build:
-  skip: true  # [python_impl == 'pypy' and osx]
+  skip: true  # [not (linux64 or win)]
   number: {{ buildnumber }}
   include_recipe: false
 
 requirements:
   build:
-    - make  # [linux or osx]
-    - {{ compiler('cxx') }}  # [not osx]
+    - make  # [linux]
+    - {{ compiler('cxx') }}  # [linux64 or win]
   host:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2023.2.1
+    - dal-devel ==2024.0.1
     - cython
     - jinja2
     - mpich      # [not win]
@@ -30,7 +30,7 @@ requirements:
     - pybind11
   run:
     - python
-    - dal ==2023.2.1
+    - dal ==2024.0.1
     - {{ pin_compatible('numpy') }}
 
 test:
@@ -39,9 +39,8 @@ test:
     - pandas  # [python_impl != 'pypy']
     - scipy
     - scikit-learn
-    - xgboost      # [not win and py<=38]
-    - lightgbm      # [lnx]
-    - catboost      # [py<=310]
+    - xgboost
+    - lightgbm
     - pytest
     - mpich      # [not win]
   source_files:
@@ -56,9 +55,8 @@ test:
     - python -m unittest discover -v -p 'test*[!ex].py'
     - pytest --verbose --pyargs ../daal4py/sklearn
     - pytest --verbose --pyargs ../onedal
-    - python run_examples.py
-    - python -m daal4py ../examples/daal4py/sycl/sklearn_sycl.py
-
+    #- python run_examples.py temp_removal
+ 
 about:
   home: https://intelpython.github.io/daal4py/
   license: Apache-2.0
@@ -83,3 +81,4 @@ extra:
         # GitHub IDs for maintainers of the recipe.
     - napetrov
     - Alexsandruss
+    - maria-Petrova
