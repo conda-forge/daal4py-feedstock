@@ -51,7 +51,7 @@ test:
   commands:
     - cd tests
     - python -c "import daal4py"
-    - mpirun -n 4 python -m unittest discover -v -p "spmd*.py" # [not win]
+    - mpirun -n 4 python -m unittest discover -v -p "spmd*.py"  # [not win]
     - python -m unittest discover -v -p "test*[!ex].py"
     - pytest --verbose --pyargs ../daal4py/sklearn
     - pytest --verbose --pyargs ../onedal
