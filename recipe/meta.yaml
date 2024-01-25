@@ -21,7 +21,7 @@ requirements:
     - python
     - setuptools
     - numpy
-    - dal-devel ==2024.0.1
+    - dal-devel ==2024.1.0
     - cython
     - jinja2
     - mpich      # [not win]
@@ -56,7 +56,7 @@ test:
     - pytest --verbose --pyargs ../daal4py/sklearn
     - pytest --verbose --pyargs ../onedal
     #- python run_examples.py temp_removal
- 
+
 about:
   home: https://intelpython.github.io/daal4py/
   license: Apache-2.0
