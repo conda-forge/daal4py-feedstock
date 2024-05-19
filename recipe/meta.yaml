@@ -17,6 +17,7 @@ requirements:
   build:
     - make  # [linux]
     - {{ compiler('cxx') }}  # [linux64 or win]
+    - {{ stdlib("c") }}    # [linux64 or win]
   host:
     - python
     - setuptools
@@ -31,7 +32,6 @@ requirements:
   run:
     - python
     - dal =={{ version }}
-    - {{ pin_compatible('numpy') }}
 
 test:
   requires:
