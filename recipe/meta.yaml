@@ -32,7 +32,6 @@ requirements:
   run:
     - python
     - dal =={{ version }}
-    - {{ pin_compatible('numpy') }}
 
 test:
   requires:
